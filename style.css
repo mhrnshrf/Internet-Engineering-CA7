@@ -1,0 +1,75 @@
+html{
+	direction: rtl;
+}
+
+#top{
+	color:white;
+	background-color:#4F2550;
+	padding:10px;
+	margin-top: 10px;
+	border-radius: 10px;
+}
+
+.ng-invalid.ng-dirty {
+  border-color: red;
+}
+
+.ng-valid.ng-dirty {
+  border-color: green;
+}
+
+
+.nav-pills > li.active > a, .nav-pills > li.active > a:focus , .nav-pills > li.active > a:hover{
+    color: white;
+    background-color: #977299;
+}
+
+.nav-pills > li>a:hover{
+    background-color: #E5E7E9 ;
+    color:black;
+}
+
+.nav-pills > li>a{
+    color:black;
+}
+
+
+a {
+    cursor: pointer;
+    color: #977299;
+}
+
+a:hover {
+    color: #4F2550;
+    text-decoration: none;
+}
+
+.box{
+	margin-right:20px;
+	margin-top:10px;
+}
+
+input[type=submit]{
+    background-color:#CCD1D1;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    text-align: center;
+}
+
+input[type=submit]:hover{
+    background-color: MediumSpringGreen;
+}
+
+ul {
+    list-style-type: none;
+}
+
+.nav, .pagination, .carousel, .panel-title a { cursor: pointer; }
+
+.error-msg {
+	color: red;
+}
