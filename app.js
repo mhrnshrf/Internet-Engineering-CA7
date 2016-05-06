@@ -4,16 +4,7 @@
   app.controller('StoreController', function($scope) {
     this.customers = custs;
     this.symbols = syms;
-    $scope.$on('reqCreated', function(event, newReq) {
-      this.customers[0].budget += newReq.price;
-            // $http.post('http://localhost:3000/polls', newPoll).then(function() {
-            //     pollCtrl.extendPollWithView(newPoll);
-            //     pollCtrl.polls.push(newPoll);
-            // },
-            // function(error) {
-            //     console.log(error)
-            // });
-    });
+
  
   });
 
@@ -61,6 +52,11 @@
     };
   });
 
+  app.controller("LoginController", function(){
+
+  
+  });
+
 app.controller('ModalDemoCtrl', function ($scope, $uibModal, $log) {
 
   $scope.items = ['item1', 'item2', 'item3'];
@@ -68,7 +64,7 @@ app.controller('ModalDemoCtrl', function ($scope, $uibModal, $log) {
   $scope.animationsEnabled = true;
 
 
-  $scope.open = function (size) {
+  $scope.open = function (size, sym) {
 
     var modalInstance = $uibModal.open({
       animation: $scope.animationsEnabled,
@@ -78,10 +74,14 @@ app.controller('ModalDemoCtrl', function ($scope, $uibModal, $log) {
       resolve: {
         items: function () {
           return $scope.items;
-        }
-
+        }, 
+        symbol: function () {
+          return sym;
+        },
       }
     });
+
+
 
     modalInstance.result.then(function (selectedItem) {
       $scope.selected = selectedItem;
@@ -100,23 +100,22 @@ app.controller('ModalDemoCtrl', function ($scope, $uibModal, $log) {
 // Please note that $uibModalInstance represents a modal window (instance) dependency.
 // It is not the same as the $uibModal service used above.
 
-app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items) {
+app.controller('ModalInstanceCtrl', function ($scope, $uibModalInstance, items, symbol) {
 
   $scope.items = items;
+  $scope.symbol = symbol;
   $scope.selected = {
     // item: $scope.items[0],
-    symbol:"salam",
+    symbol:$scope.symbol,
     quantity:0,
     price:0,
     bs:"buy",
     type:"GTC",
-    status:"waiting"
+    status:"waiting",
   };
-
 
   $scope.ok = function (reqForm) {
     if (reqForm.$valid) {
-
     $uibModalInstance.close($scope.selected);
     };
 

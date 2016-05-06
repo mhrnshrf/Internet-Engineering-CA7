@@ -14,9 +14,45 @@
     <!-- // <script type="text/javascript" src="form.js"></script> -->
     <link rel="stylesheet" type="text/css" href="style.css">
     <link rel="stylesheet" type="text/css" href="ui-bootstrap-custom-1.3.2-csp.css">
+    <script type="text/javascript">
+		$(document).ready(function(){
+			$("#myModal").modal('show');
+		});
+	</script>
   </head>
 
   <body ng-controller="StoreController as store">
+
+
+	 <!-- Login Modal -->
+	  <div class="modal fade" id="myModal" role="dialog">
+	    <div class="modal-dialog modal-sm">
+	      <div class="modal-content">
+	        <div class="modal-header">
+	          <h4 class="modal-title">به سامانه بورس خوش آمدید</h4>
+	        </div>
+	        <div class="modal-body">
+	       	 <form name="loginForm">
+		       	 <input type="text" 
+		           placeholder="شناسه کاربری" 
+	               name="userID" 
+	               class="form-control" 
+	               id="userID" 
+	               ng-model="userID" 
+	               required /> 
+
+	       	 </form>
+	        </div>
+	        <div class="modal-footer">
+
+	          <button type="submit" class="btn btn-default" data-dismiss="modal">ورود</button>
+	        </div>
+	      </div>
+	    </div>
+	  </div>
+	</div>
+
+
 	  <div class="container">
 	    <!--  Store Header  -->
 	    <div class="row">
@@ -34,8 +70,10 @@
 			    <div class="list-group">
 			      <!--  customer Container  -->
 			      <div class="list-group-item" ng-repeat="customer in store.customers">
-			        <h4>حساب کاربری</h4>
-
+			        <div  style="display: none;" >{{customer.id = userID}}</div>
+			        <h4>حساب کاربری &nbsp;&nbsp;<em>{{customer.id}}</em></h4>  
+			        
+			        	
 			        <!-- customer Tabs  -->
 			        <section ng-controller="TabController as tab">
 			          <ul class="nav nav-pills navbar-right">
@@ -68,7 +106,7 @@
 								  </blockquote> -->
 
 								  <fieldset class="form-group">
-								    <input ng-model="depositCtrl.amount" type="number" class="form-control" placeholder="مبلغ به هزار ریال"/>
+								    <input ng-model="depositCtrl.amount" type="number" min="0" class="form-control" placeholder="مبلغ به هزار ریال"/>
 								  </fieldset>
 								  <fieldset class="form-group">
 								    <input type="submit" value="واریز" />
@@ -132,18 +170,10 @@
 							            <h3 class="modal-title">ایجاد درخواست </h3>
 							        </div>
 							        <div class="modal-body">
+								        <div class="alert alert-info">
+								        <strong><i>» سهام&nbsp;{{selected.symbol}}</i></strong>
+								        </div>
 								        <form name="reqForm" role="form" novalidate>
-								          <label for="price" class="control-label">قیمت</label>
-								          <input type="number" min="0"
-					                       name="price" 
-					                       class="form-control" 
-					                       id="price" 
-					                       ng-model="selected.price" 
-								           placeholder="قیمت به ریال" 
-					                       required /> 
-					                       <div ng-messages="reqForm.price.$error" ng-if="reqForm.price.$touched">
-							                  <div ng-message="required" class="error-msg">لطفا قیمت را وارد کنید.</div>
-							                </div> </br>
 
 								          <label for="quantity" class="control-label">تعداد</label>
 					                      <input type="number" min="0"
@@ -157,6 +187,17 @@
 							                  <div ng-message="required" class="error-msg">لطفا تعداد را وارد کنید.</div>
 							                </div> </br>
 
+								          <label for="price" class="control-label">قیمت</label>
+								          <input type="number" min="0"
+					                       name="price" 
+					                       class="form-control" 
+					                       id="price" 
+					                       ng-model="selected.price" 
+								           placeholder="قیمت به ریال" 
+					                       required /> 
+					                       <div ng-messages="reqForm.price.$error" ng-if="reqForm.price.$touched">
+							                  <div ng-message="required" class="error-msg">لطفا قیمت را وارد کنید.</div>
+							                </div> </br>
 					                       <div ng-controller="ButtonsCtrl">
 											    <div class="btn-group">
 											        <label class="btn btn-primary" ng-model="selected.bs" uib-btn-radio="'sell'">فروش</label>
@@ -167,8 +208,10 @@
 											        <label class="btn btn-primary" ng-model="selected.type" uib-btn-radio="'MPO'">MPO</label>
 											        <label class="btn btn-primary" ng-model="selected.type" uib-btn-radio="'GTC'">GTC</label>
 											    </div></br>
-											     <cite class="clearfix">
-											     	<blockquote><i>{{selected.bs === 'buy' ? 'خرید' : 'فروش'}}&nbsp;{{selected.type}}</i></blockquote>
+											     <cite class="clearfix" >
+											     	<blockquote ><i><font size="3">{{selected.bs === 'buy' ? 'خرید' : 'فروش'}}&nbsp;{{selected.quantity}}&nbsp;سهام&nbsp;{{selected.symbol}}&nbsp;به قیمت&nbsp;{{selected.price}}&nbsp;ریال از نوع
+											     		{{selected.type}}</font>
+											     	</i></blockquote>
 											     </cite>
 											</div>
 										</form>
@@ -179,9 +222,9 @@
 							        </div>
 							    </script>
 
-							    <button type="button" class="btn btn-default" ng-click="open('sm')">{{symbol.name}}</button></br></br>
+							    <button type="button" class="btn btn-default" ng-click="open('sm',symbol.name) ">{{symbol.name}}</button></br></br>
 							    
-							    <div ng-show="selected">Selection from a modal: {{selected.price}}</div>
+							    <!-- <div ng-show="selected">Selection from a modal: {{selected.symbol}}</div> -->
 							</div>
 
 			           
